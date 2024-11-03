@@ -1,0 +1,19 @@
+_target_: albumentations.Compose
+
+keypoint_params:
+  _target_: albumentations.KeypointParams
+  format: "xy"
+  remove_invisible: false
+
+bbox_params:
+  _target_: albumentations.BboxParams
+  format: pascal_voc
+  label_fields: ['labels']
+
+transforms:
+  - _target_: albumentations.Resize
+    height: 700
+    width: 700
+  - _target_: albumentations.CenterCrop
+    height: 384
+    width: 384

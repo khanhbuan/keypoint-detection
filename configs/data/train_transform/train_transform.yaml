@@ -1,0 +1,45 @@
+_target_: albumentations.Compose
+
+bbox_params:
+  _target_: albumentations.BboxParams
+  format: pascal_voc
+  label_fields: ['labels']
+
+keypoint_params:
+  _target_: albumentations.KeypointParams
+  format: "xy"
+  remove_invisible: false
+
+transforms:
+  - _target_: albumentations.Resize
+    height: 700
+    width: 700
+  - _target_: albumentations.CenterCrop
+    height: 384
+    width: 384
+    p: 1.0
+  - _target_: albumentations.ShiftScaleRotate
+    shift_limit: 0.0625
+    scale_limit: 0.0
+    rotate_limit: 0.0
+    p: 0.5
+  - _target_: albumentations.RandomScale
+    scale_limit: 0.1
+    p: 0.5
+  - _target_: albumentations.Rotate
+    limit: 90
+    p: 0.5
+  - _target_: albumentations.CoarseDropout
+    max_holes: 8
+    max_height: 18
+    max_width: 18
+  - _target_: albumentations.Blur
+    blur_limit: 7
+    p: 0.5
+  - _target_: albumentations.RGBShift
+    r_shift_limit: 15
+    g_shift_limit: 15
+    b_shift_limit: 15
+    p: 0.5
+  - _target_: albumentations.RandomBrightnessContrast
+    p: 0.5
